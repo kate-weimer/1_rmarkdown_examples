@@ -1,11 +1,12 @@
 ---
 title: "Discharge Data Example"
-author: "Matthew Ross"
-date: "1/24/2022"
+author: "Matthew Ross, Kate Weimer"
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: true
     toc_float: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
@@ -15,6 +16,7 @@ library(tidyverse)
 library(dataRetrieval)
 library(dygraphs)
 library(xts)
+library(yaml)
 ```
 
 
@@ -28,10 +30,12 @@ The Poudre River at Lincoln Bridge is:
   
   - Near an open space area and the Poudre River Trail
   
-  - **Downstream of many agricultral diversions**
+  - **Downstream of many agricultural diversions**
 
 
-## SiteDescription
+## Site Description
+
+The Cache la Poudre, or "Poudre" River is located in the Front Range of Colorado's Rocky Mountains. The name comes from French trappers who hid their gunpowder near the river. The Arapahoe name for the river is _ho'oowu' heetou'_ , which means 'where a house is located,' according to [CU Boulder's Center for the Study of Indigenous Languages of the West](https://www.colorado.edu/center/csilw/language-archives/arapaho-word-lists/place-names). The Poudre River is a tributarty of the South Platte, which later joins the Platte River, which is a tributary of the Missouri River, which in turn feeds the [Mississippi River](https://en.wikipedia.org/wiki/Mississippi_River) and **flows into the Gulf of Mexico**. According to the [Coalition for the Poudre River Watershed](https://www.poudrewatershed.org/cache-la-poudre-watershed), the Poudre supports water supply for **over 330,000 residents and 151,547 acres of irrigated land**.
 
 ![](https://waterdata.usgs.gov/nwisweb/local/state/co/text/pics/06752260big.jpg)
 
@@ -76,7 +80,7 @@ q_xts <- xts(q$q, order.by = q$Date)
 
 
 dygraph(q_xts) %>%
-  dyAxis("y", label = "Discharge (cfs)") 
+  dyAxis("y", label = "Discharge (cfs)") %>% dyEvent("2017-5-27", "27 May", labelLoc = "top") %>% dyEvent("2018-5-28", "28 May", labelLoc = "top")%>% dyEvent("2019-6-09", "09 Jun", labelLoc = "top")%>% dyEvent("2020-6-01", "01 Jun", labelLoc = "top")%>% dyEvent("2021-5-23", "23 May", labelLoc = "top")
 ```
 
 
